@@ -1,44 +1,33 @@
-// union型
-function combine(input1: number | string, input2: number | string) {
-  let result;
-  if (typeof input1 === "number" && typeof input2 === "number") {
-    result = input1 + input2;
-  } else {
-    result = input1.toString() + input2.toString();
-  }
-  return result;
+// functionとvoid
+// 変数と同様、基本型推論を使用する
+function add(n1: number, n2: number): number {
+  return n1 + n2;
 }
 
-const combineAges = combine(30, 63);
-console.log(combineAges);
-
-const combinedNames = combine("Max", "Anna");
-console.log(combinedNames);
-
-// Literal型
-function combineLiteral(
-  input1: number | string,
-  input2: number | string,
-  // 特定の文字しか入れないようにしている
-  resultConversion: "as-number" | "as-text"
-) {
-  let result;
-  if (
-    (typeof input1 === "number" && typeof input2 === "number") ||
-    resultConversion === "as-number"
-  ) {
-    result = +input1 + +input2;
-  } else {
-    result = input1.toString() + input2.toString();
-  }
-  //   if ((resultConversion = "as-number")) {
-  //     return +result;
-  //   }
-  return result;
+function printResulta(num: number) {
+  console.log(num);
 }
 
-const combineLiteralAges = combineLiteral(30, 63, "as-text");
-console.log(combineLiteralAges);
+// function型とコールバック
+function addAndHandle(n1: number, n2: number, cd: (num: number) => void) {
+  const result = n1 + n2;
+  cd(result);
+}
 
-const combinedLiteralNames = combineLiteral("Max", "Anna", "as-number");
-console.log(combinedLiteralNames);
+addAndHandle(10, 20, (result) => {
+  console.log(result);
+});
+
+// 特定の関数の方定義
+let combineValues: (n1: number, n2: number) => number;
+
+combineValues = add;
+
+// any型なので、なんでも入れることができる
+// combineValues = 5;
+// 関数型だけだとどの関数でも代入できてしまう
+// combineValues = printResulta;
+
+console.log(combineValues(8, 8));
+
+printResulta(add(5, 12));

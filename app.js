@@ -1,34 +1,12 @@
-// union型
-function combine(input1, input2) {
-    var result;
-    if (typeof input1 === "number" && typeof input2 === "number") {
-        result = input1 + input2;
-    }
-    else {
-        result = input1.toString() + input2.toString();
-    }
-    return result;
+// functionとvoid
+// 変数と同様、基本型推論を使用する
+function add(n1, n2) {
+    return n1 + n2;
 }
-var combineAges = combine(30, 63);
-console.log(combineAges);
-var combinedNames = combine("Max", "Anna");
-console.log(combinedNames);
-// Literal型
-function combineLiteral(input1, input2, resultConversion) {
-    var result;
-    if ((typeof input1 === "number" && typeof input2 === "number") ||
-        resultConversion === "as-number") {
-        result = +input1 + +input2;
-    }
-    else {
-        result = input1.toString() + input2.toString();
-    }
-    //   if ((resultConversion = "as-number")) {
-    //     return +result;
-    //   }
-    return result;
+function printResulta(num) {
+    console.log(num);
 }
-var combineLiteralAges = combineLiteral(30, 63, "as-text");
-console.log(combineLiteralAges);
-var combinedLiteralNames = combineLiteral("Max", "Anna", "as-number");
-console.log(combinedLiteralNames);
+var combineValues;
+combineValues = add;
+console.log(combineValues(8, 8));
+printResulta(add(5, 12));
