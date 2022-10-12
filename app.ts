@@ -1,32 +1,44 @@
-// 引数の型指定
-// JSでも」typeofを使用すれば型定義を行うことができる
-// ランタイム上ではTypeScriptは何もしない
-// プリミティブ型
-function addNumber(n1: number, n2: number) {
-  return n1 + n2;
-}
-
-const number1 = 5;
-const number2 = 7;
-
-const numberResult = addNumber(number1, number2);
-console.log(numberResult);
-
-function addBoolen(
-  n1: number,
-  n2: number,
-  showResult: boolean,
-  phrase: string
-) {
-  const result = n1 + n2;
-  if (showResult) {
-    console.log(resultPhrase + result);
+// union型
+function combine(input1: number | string, input2: number | string) {
+  let result;
+  if (typeof input1 === "number" && typeof input2 === "number") {
+    result = input1 + input2;
   } else {
-    return result;
+    result = input1.toString() + input2.toString();
   }
+  return result;
 }
 
-const printResult = true;
-const resultPhrase = "Result: ";
+const combineAges = combine(30, 63);
+console.log(combineAges);
 
-addBoolen(number1, number2, printResult, resultPhrase);
+const combinedNames = combine("Max", "Anna");
+console.log(combinedNames);
+
+// Literal型
+function combineLiteral(
+  input1: number | string,
+  input2: number | string,
+  // 特定の文字しか入れないようにしている
+  resultConversion: "as-number" | "as-text"
+) {
+  let result;
+  if (
+    (typeof input1 === "number" && typeof input2 === "number") ||
+    resultConversion === "as-number"
+  ) {
+    result = +input1 + +input2;
+  } else {
+    result = input1.toString() + input2.toString();
+  }
+  //   if ((resultConversion = "as-number")) {
+  //     return +result;
+  //   }
+  return result;
+}
+
+const combineLiteralAges = combineLiteral(30, 63, "as-text");
+console.log(combineLiteralAges);
+
+const combinedLiteralNames = combineLiteral("Max", "Anna", "as-number");
+console.log(combinedLiteralNames);
