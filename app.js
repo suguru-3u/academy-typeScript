@@ -1,12 +1,12 @@
-// functionとvoid
-// 変数と同様、基本型推論を使用する
-function add(n1, n2) {
-    return n1 + n2;
-}
-function printResulta(num) {
-    console.log(num);
-}
-var combineValues;
-combineValues = add;
-console.log(combineValues(8, 8));
-printResulta(add(5, 12));
+"use strict";
+// Watchモード プログラムを監視し、変更が合った場合自動的に検知する
+// tsc 対象ファイル --watch で実行可能 --w　でもOK
+// TypeScriptでプログラムを作っていること = ブラウザ向けに作っているとは限らない。
+// このことをTypeScriptに指定してあげる必要がある。
+let text = "abc";
+console.log(text);
+const button = document.querySelector("button");
+button.addEventListener("click", () => {
+    console.log("click");
+});
+console.log("test");
