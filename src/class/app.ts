@@ -1,4 +1,4 @@
-class Department {
+class Department3 {
   // JavaScriptにはprivate,publicの概念はないのでエラーが起きてもコンパイルすれば動いてしまう
   //   private id: number;
   //   private name: string;
@@ -14,7 +14,7 @@ class Department {
   // thisはそのオブジェクトの呼び出し責任をさす
   // describeを実行した際に、thisは常にdescribeクラスを参照するように指定敷いている
   public describe(this: Department) {
-    console.log("Department", this.id, this.name);
+    console.log("Department", this.name);
   }
 
   public addEmplyee(emplyee: string) {
@@ -26,12 +26,12 @@ class Department {
   }
 }
 
-const department = new Department("d1", "高島屋");
-console.log(department);
-department.describe();
-department.addEmplyee("Takashi");
-department.addEmplyee("Takashi");
-department.printEmplyeeInfo();
+// const department = new Department3("d1", "高島屋");
+// console.log(department);
+// department3.describe();
+// department3.addEmplyee("Takashi");
+// department3.addEmplyee("Takashi");
+// department3.printEmplyeeInfo();
 
 // const accountCopy = { name: "Copy Department", describe: department.describe };
 // thiisはaccountCopyを参照
@@ -105,6 +105,8 @@ IT.describe();
 class AccountingDepartment extends Department {
   private lastReport: string;
 
+  private static instace: AccountingDepartment;
+
   // フィールドとして扱うことができる
   get mostRecentReport() {
     if (this.lastReport) {
@@ -120,9 +122,19 @@ class AccountingDepartment extends Department {
     this.addReport(value);
   }
 
-  constructor(id: string, private reports: string[]) {
+  // privateをするとnewでインスタンスを作ることができなくなる
+  private constructor(id: string, private reports: string[]) {
     super(id, "Acounting");
     this.lastReport = reports[0];
+  }
+
+  static getInctance() {
+    if (this.instace) {
+      return this.instace;
+    }
+
+    this.instace = new AccountingDepartment("d4", []);
+    return this.instace;
   }
 
   addReport(text: string) {
@@ -147,7 +159,7 @@ class AccountingDepartment extends Department {
   }
 }
 
-const report = new AccountingDepartment("d3", []);
+const report = AccountingDepartment.getInctance();
 // console.log(report.mostRecentReport);
 report.addReport("something");
 
@@ -165,3 +177,9 @@ console.log(report.mostRecentReport);
 
 const employee1 = Department.createEmplyee("Tanaka");
 console.log(employee1, Department.fiscalYear);
+
+// デザインパターン
+// シングルトンパターン
+// オブジェクトを一つしか存在しない
+
+// インターフェース
