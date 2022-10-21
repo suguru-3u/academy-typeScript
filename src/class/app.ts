@@ -1,46 +1,12 @@
-class Department3 {
+/**
+ * Class,abstract,extends about
+ */
+
+abstract class Department {
   // JavaScriptにはprivate,publicの概念はないのでエラーが起きてもコンパイルすれば動いてしまう
   //   private id: number;
   //   private name: string;
   private emplyees: string[] = [];
-
-  // コメントのような書き方も存在するが、この書き方も存在する
-  // 読み取り専用には、readonlyを使用することで読みとり専用にすることができる
-  constructor(private readonly id: string, public name: string) {}
-  //   constructor(n: string) {
-  //     this.name = n;
-  //   }
-
-  // thisはそのオブジェクトの呼び出し責任をさす
-  // describeを実行した際に、thisは常にdescribeクラスを参照するように指定敷いている
-  public describe(this: Department) {
-    console.log("Department", this.name);
-  }
-
-  public addEmplyee(emplyee: string) {
-    this.emplyees.push(emplyee);
-  }
-
-  public printEmplyeeInfo() {
-    console.log(this.emplyees);
-  }
-}
-
-// const department = new Department3("d1", "高島屋");
-// console.log(department);
-// department3.describe();
-// department3.addEmplyee("Takashi");
-// department3.addEmplyee("Takashi");
-// department3.printEmplyeeInfo();
-
-// const accountCopy = { name: "Copy Department", describe: department.describe };
-// thiisはaccountCopyを参照
-// accountCopy.describe();
-
-abstract class Department {
-  // private readonly id: string;
-  // name: string;
-  protected employees: string[] = [];
 
   // 静的プロパティ
   static fiscalYear = 2020;
@@ -50,25 +16,26 @@ abstract class Department {
     return { name: name };
   }
 
-  constructor(private readonly id: string, public name: string) {
-    // this.id = id;
-    // this.name = n;
-  }
+  // コメントのような書き方も存在するが、この書き方も存在する
+  // 読み取り専用には、readonlyを使用することで読みとり専用にすることができる
+  constructor(private readonly id: string, public name: string) {}
+  //   constructor(n: string) {
+  //     this.name = n;
+  //   }
 
-  //   抽象化
-  //   メソッドの名前と引数戻り値のみ定義
-  //   抽象化する際は、クラスにもabstrctを追加する必要がある
+  // 抽象化
+  // メソッドの名前と引数戻り値のみ定義
+  // 抽象化する際は、クラスにもabstrctを追加する必要がある
+  // thisはそのオブジェクトの呼び出し責任をさす
+  // describeを実行した際に、thisは常にdescribeクラスを参照するように指定敷いている
   abstract describe(this: Department): void;
 
-  addEmployee(employee: string) {
-    // validation etc
-    // this.id = 'd2';
-    this.employees.push(employee);
+  public addEmplyee(emplyee: string) {
+    this.emplyees.push(emplyee);
   }
 
-  printEmployeeInformation() {
-    console.log(this.employees.length);
-    console.log(this.employees);
+  public printEmplyeeInfo() {
+    console.log(this.emplyees);
   }
 }
 
@@ -107,6 +74,7 @@ class AccountingDepartment extends Department {
 
   private static instace: AccountingDepartment;
 
+  // getter
   // フィールドとして扱うことができる
   get mostRecentReport() {
     if (this.lastReport) {
@@ -115,6 +83,7 @@ class AccountingDepartment extends Department {
     throw new Error("レポートが見つかりません。");
   }
 
+  // setter
   set mostRecentReport(value: string) {
     if (!value) {
       throw new Error("正しい値でアクセスしてください。");
@@ -122,6 +91,8 @@ class AccountingDepartment extends Department {
     this.addReport(value);
   }
 
+  // デザインパターン
+  // シングルトンパターン
   // privateをするとnewでインスタンスを作ることができなくなる
   private constructor(id: string, private reports: string[]) {
     super(id, "Acounting");
@@ -151,7 +122,7 @@ class AccountingDepartment extends Department {
     if (name === "Max") {
       return;
     }
-    this.employees.push(name);
+    console.log("田中");
   }
 
   describe() {
@@ -169,7 +140,7 @@ report.printReports();
 report.addEmployee("Max");
 report.addEmployee("Taro");
 report.addEmployee("Mani");
-report.printEmployeeInformation();
+report.printEmplyeeInfo();
 report.describe();
 
 // getterは()なしでアクセスすることができる
@@ -177,9 +148,3 @@ console.log(report.mostRecentReport);
 
 const employee1 = Department.createEmplyee("Tanaka");
 console.log(employee1, Department.fiscalYear);
-
-// デザインパターン
-// シングルトンパターン
-// オブジェクトを一つしか存在しない
-
-// インターフェース

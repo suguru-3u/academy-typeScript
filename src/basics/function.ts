@@ -1,3 +1,7 @@
+/**
+ * 関数についてbasicよりも詳細はことが書かれている
+ */
+
 // functionとvoid
 // 変数と同様、基本型推論を使用する
 function add(n1: number, n2: number): number {

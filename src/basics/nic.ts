@@ -1,4 +1,7 @@
-"use strict";
+/**
+ * anyとunkown型について
+ */
+
 // unknown型
 // 型を指定しなければいけなくなるので、anyよりも安全
 // anyかunknownであればunkonwnの方がいい
@@ -16,4 +19,3 @@ function generateErrora(message: string, code: number) {
   throw { message: message, errorCode: code };
 }
 generateErrora("エラーが発生しました", 500);
-// Watchモード

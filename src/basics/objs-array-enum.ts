@@ -1,3 +1,7 @@
+/**
+ * Object、Array、Tuple、enum
+ */
+
 // オブジェクト
 // プロパティを自動で型推論してくれる
 // なるべく基本型推論を行う
@@ -45,11 +49,29 @@ const personTuple: {
   hobbies: string[];
   //   配列の要素の型と数を厳密に定義することができる
   role: [number, string];
+  arrayObject: [{ age: number }];
+  objectArray: { age: number }[];
 } = {
   name: "yota",
   age: 30,
   hobbies: ["sport", "cooking"],
   role: [2, "author"],
+  arrayObject: [
+    {
+      age: 29,
+    },
+  ],
+  objectArray: [
+    {
+      age: 29,
+    },
+    {
+      age: 29,
+    },
+    {
+      age: 29,
+    },
+  ],
 };
 
 personTuple.role = [0, "admin"];

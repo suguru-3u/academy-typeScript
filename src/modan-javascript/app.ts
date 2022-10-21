@@ -14,10 +14,12 @@ console.log(addDefaultfunction());
 
 // スプレッドオペレータ
 // 配列やオブジェクトをリストとして取り出し、個別の値として代入する
-const sports = ["soccer", "tenneis"];
+const sports = ["soccer", "tenneis", "カバディ", "basetball", "baseball"];
 const sports2 = ["soccer", "tenneis", "baseball"];
 
-sports2.push(...sports2);
+console.log(sports2);
+sports2.push(...sports);
+console.log(sports2);
 
 const personObj = {
   firstname: "Max",
@@ -27,12 +29,12 @@ const personObj = {
 // ポインターをコピー
 const personObjCopy = personObj;
 
-// 値をコピーし新しいオブジェクトを作成
+// 値をコピーし新しいオブジェクトを作成（この時もスプレットオペレータを使用することができる）
 const personObjCopy2 = {
   ...personObj,
 };
 
-// Rest Parameters
+// Rest Parameters（引数を配列として使用することができる）
 const addRestfunction = (...numbers: number[]) => {
   numbers.reduce((curResult, curValue) => {
     return curResult + curValue;
@@ -41,8 +43,8 @@ const addRestfunction = (...numbers: number[]) => {
 
 const addNumbers = addRestfunction(1, 4, 5, 6, 7);
 
-// 分割代入
+// 分割代入（配列やオブジェクトを要素ごとに取得することが可能）
 const [sport1, sport2, ...sportss] = sports;
-console.log(sport1, sport2, ...sportss);
+console.log(sport1, sport2, sportss); // "soccer", "tenneis", ["カバディ", "basetball", "baseball"]
 
 const { firstname, agea } = personObj;

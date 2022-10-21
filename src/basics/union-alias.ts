@@ -1,3 +1,7 @@
+/**
+ * union,alias about
+ */
+
 // union型
 function combine(input1: number | string, input2: number | string) {
   let result;
@@ -15,7 +19,7 @@ console.log(combineAges);
 const combinedNames = combine("Max", "Anna");
 console.log(combinedNames);
 
-// alias型
+// alias型（名前のついた型を型エイリアス）
 type Combinable = number | string;
 // alias型　✖️ Literal型
 type ComversionDescriptor = "as-number" | "as-text";
