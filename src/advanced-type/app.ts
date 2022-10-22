@@ -27,8 +27,13 @@ type Numiric = number | boolean;
 // 共通しているnumber型のみの方になる
 type Universal = Combinablea & Numiric;
 
+// *** function overload ***
+// 既存の関数の勝って意義を上書きして型定義できるようにしている
+function addTypeGuard(a: number, b: number): number;
+function addTypeGuard(a: string, b: string): string;
+
 // *** Type Guard ***
-function addTypeGuard(a: Combinablea, b: Combinablea) {
+function addTypeGuard(a: Combinablea, b: Combinablea): Combinablea {
   // typeによって判定
   if (typeof a === "string" || typeof b === "string") {
     return a.toString() + b.toString();
@@ -109,3 +114,57 @@ function moveAnimal(animal: Animal) {
 
 moveAnimal({ type: "bird", flyingSpeed: 1000 });
 moveAnimal({ type: "horse", runningSpeed: 500 });
+
+// *** Type Casting ***
+// 下のやり方はReactでは使用できない asがおすすめ;
+// const userInputElemetn = <HTMLInputElement>(
+//   document.getElementById("user-input")!
+// );
+const userInputElemetn = document.getElementById(
+  "user-input"
+) as HTMLInputElement;
+
+userInputElemetn.value = "こんにちわ!!!";
+
+// *** index type ***
+interface ErrorContainer {
+  // プロパティ名の定義,プロパティの名前と数はわからないが値は文字列であることを定義している
+  [key: string]: string;
+  // index trypeがあるので、number typeは定義できない
+  // id: number;
+}
+
+const errorBag: ErrorContainer = {
+  email: "正しいメールアドレスではありません",
+  username: "ユーザー名が正しくありません",
+};
+
+// *** function pverload ***
+const result = addTypeGuard("Hello", "Max");
+result.split(" ");
+
+// *** Optinal Chaining ***
+// expmale：DBから値を取得したCase
+// プロパティが存在するかわからない時に使用する
+const fetchUserData = {
+  id: "u1",
+  name: "user1",
+  job: {
+    title: "Developer",
+    desctiption: "TypeScript",
+  },
+};
+
+// jobが存在しているか確認し、存在する場合はtileにアクセスする
+console.log(fetchUserData.job?.title);
+
+// *** Nullish Coalescing Opertor ***
+// 値がnullかどうかわからない場合
+const userInput = null;
+// userInputだった場合、別の値を入力できるようにする
+// 以下二つの方法で試すことができる
+// これは、null or undefined or 空文字の判定を行うことができる
+// const storeData = userInput || "DEFALUT";
+// これは、null or undefinedの判定を行うことができる
+const storeData = userInput ?? "DEFALUT!";
+console.log(storeData);
