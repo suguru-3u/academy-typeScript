@@ -141,3 +141,81 @@ p.showMessage();
 
 const button = document.querySelector("button");
 button?.addEventListener("click", p.showMessage);
+
+// *** デコレータのバリデーション ***
+// calss-validator ライブラリ
+
+interface ValidatorConfig {
+  [prop: string]: {
+    [validatetableProp: string]: string[]; // ["required","PositiveNumber"]
+  };
+}
+
+const registerValidators: ValidatorConfig = {};
+
+function Required(target: any, propName: string) {
+  registerValidators[target.constructor.name] = {
+    ...registerValidators[target.constructor.name],
+    [propName]: ["required"],
+  };
+}
+
+function PositiveNumber(target: any, propName: string) {
+  registerValidators[target.constructor.name] = {
+    ...registerValidators[target.constructor.name],
+    [propName]: ["positiveNumber"],
+  };
+}
+
+function validate(obj: any) {
+  const objValidatorConfig = registerValidators[obj.constructor.name];
+  if (!objValidatorConfig) {
+    return true;
+  }
+  let isValid = true;
+  for (const prop in objValidatorConfig) {
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case "required":
+          isValid = isValid && !!obj[prop];
+          break;
+        case "positiveNumber":
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+
+class Course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const couseForm = document.querySelector("form")!;
+couseForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const titleEl = document.getElementById("title") as HTMLInputElement;
+  const priceEL = document.getElementById("price") as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEL.value;
+
+  const course = new Course(title, price);
+
+  if (!validate(course)) {
+    alert("正しく入力してください");
+  }
+
+  console.log(course);
+});
+
+// nest typescript nodeのフレームワーク
