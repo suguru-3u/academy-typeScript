@@ -23,6 +23,33 @@ let obj2: { b: string } = {
   b: "x",
 };
 
+// 以下の型定義はリテラル型にはならない。
+// オブジェクトはミュータブルであり、値の変更が発生することをTypeScriptは知っているから
+const obj3 = {
+  b: 12,
+};
+
+// cはstringの可能性があることを宣言している（undefindでも可能）
+// keyはbooleanである数値プロパティを任意の数だけ持つことを宣言している
+// readonlyは読み取り専用を宣言
+let d: {
+  b: number;
+  c?: string;
+  // [key:T]:Uの構文はインデックスシグネチャと言われ、型(T)はnumberかstringでなくてはならない
+  [key: number]: boolean;
+  readonly name: string;
+};
+
+d = {
+  b: 1,
+  c: "a",
+  10: true,
+  20: false,
+  name: "taro",
+};
+
+// オブジェクトリテラルには空のオブジェクトを型を宣言できるが、扱いづらいので使用しないようにする。
+
 /**
  * メモ
  */
