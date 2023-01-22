@@ -64,3 +64,5 @@ let user: {
 
 // 型を定義する際にconstを使用するとただ一つの型を表すリテラル型になる
 const a = true;
+
+let h = null;
